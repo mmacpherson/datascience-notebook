@@ -64,6 +64,7 @@ RUN conda install --quiet --yes \
     xgboost \
     # -- coding
     flake8 \
+    hypothesis \
     jupyter_contrib_nbextensions \
     nbstripout \
     pytest \
@@ -74,8 +75,9 @@ RUN conda install --quiet --yes \
 # -- install packages not available in the conda channels above
 RUN pip install -U -q pip && \
     pip install -U -q \
-        plydata \
         dfply \
         dplython \
+        plydata \
+        pysistence \
         statik \
         git+git://github.com/mmacpherson/cottonmouth.git@master
