@@ -75,6 +75,7 @@ RUN conda install --quiet --yes \
 # -- install packages not available in the conda channels above
 RUN pip install -U -q pip && \
     pip install -U -q \
+        edward \
         dfply \
         dplython \
         plydata \
