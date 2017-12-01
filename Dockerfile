@@ -88,5 +88,3 @@ RUN pip install -U -q pip && \
         pysistence \
         statik \
         git+git://github.com/mmacpherson/cottonmouth.git@master
-
-RUN apt 
