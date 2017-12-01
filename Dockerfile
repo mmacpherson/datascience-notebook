@@ -43,6 +43,7 @@ RUN conda update --all --quiet --yes
 #    (relies on earlier-configured conda channels: first conda-forge, then defaults)
 RUN conda install --quiet --yes \
     # -- general
+    boto3 \
     dask \
     ipython \
     luigi \
