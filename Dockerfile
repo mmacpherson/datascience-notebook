@@ -34,6 +34,11 @@ FROM jupyter/tensorflow-notebook
 
 MAINTAINER Mike Macpherson <mmacpherson@users.noreply.github.com>
 
+USER root
+RUN apt-get update && apt-get install -y \
+    awscli
+
+USER jovyan
 # -- upgrade everything
 #    (relies on earlier-configured conda channels: first conda-forge, then defaults)
 RUN conda update --all --quiet --yes
@@ -83,3 +88,5 @@ RUN pip install -U -q pip && \
         pysistence \
         statik \
         git+git://github.com/mmacpherson/cottonmouth.git@master
+
+RUN apt 
