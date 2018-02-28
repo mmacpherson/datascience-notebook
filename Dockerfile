@@ -38,7 +38,7 @@ USER root
 RUN apt-get update && apt-get install -y \
     awscli
 
-USER jovyan
+USER $NB_USER
 # -- upgrade everything
 #    (relies on earlier-configured conda channels: first conda-forge, then defaults)
 RUN conda update --all --quiet --yes
@@ -63,6 +63,7 @@ RUN conda install --quiet --yes \
     plotnine \
     # -- data
     feather-format \
+    protobuf \
     pymc3 \
     pystan \
     pytorch \
@@ -72,6 +73,7 @@ RUN conda install --quiet --yes \
     flake8 \
     hypothesis \
     jupyter_contrib_nbextensions \
+    jupyterlab \
     nbstripout \
     pytest \
     watermark \
@@ -81,10 +83,18 @@ RUN conda install --quiet --yes \
 # -- install packages not available in the conda channels above
 RUN pip install -U -q pip && \
     pip install -U -q \
+        dash \
+        dash-core-components \
+        dash-html-components \
+        dash-renderer \
         edward \
-        dfply \
-        dplython \
+        knotr \
+        plotly \
         plydata \
         pysistence \
-        statik \
         git+git://github.com/mmacpherson/cottonmouth.git@master
+
+
+# -- install pair overview and facets
+RUN git clone https://github.com/PAIR-code/facets
+RUN cd facets && jupyter nbextension install facets-dist/ --user

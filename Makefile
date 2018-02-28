@@ -20,8 +20,10 @@ run:
 	docker run -d \
     --name $(CONTAINER_NAME) \
     -p $(PORT_EXPOSED_TO_HOST):$(PORT_EXPOSED_BY_CONTAINER) \
+    -v $(PWD):/host \
     $(IMAGE_NAME) \
     start-notebook.sh \
+    --NotebookApp.iopub_data_rate_limit=10000000 \
     --NotebookApp.token=''
 
 
