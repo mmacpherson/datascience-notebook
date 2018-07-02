@@ -1,4 +1,5 @@
-FROM jupyter/tensorflow-notebook
+# FROM jupyter/tensorflow-notebook
+FROM jupyter/datascience-notebook
 
 # -- from the docs:
 #    tensorflow-notebook inherits from scipy-notebook, which provides:
@@ -36,7 +37,13 @@ MAINTAINER Mike Macpherson <mmacpherson@users.noreply.github.com>
 
 USER root
 RUN apt-get update && apt-get install -y \
-    awscli
+    awscli \
+    ed \
+    libhdf5-dev \
+    libnlopt-dev \
+    libomp-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 
 USER $NB_USER
 # -- upgrade everything
@@ -56,18 +63,18 @@ RUN conda install --quiet --yes \
     # -- web/net
     bottle \
     flask \
-    pelican \
+    # pelican \
     requests \
     # -- viz
-    altair \
+    # altair \
     plotnine \
     # -- data
     feather-format \
     protobuf \
     pymc3 \
-    pystan \
-    pytorch \
-    theano \
+    # pystan \
+    # pytorch \
+    # theano \
     xgboost \
     # -- coding
     flake8 \
@@ -78,9 +85,19 @@ RUN conda install --quiet --yes \
     pytest \
     watermark \
     yapf \
+    # -- R
+    r-caret \
+    r-domc \
+    r-glmnet \
+    r-irkernel \
+    r-proc \
+    r-rocr \
+    r-tidyverse \
     && conda clean -tipsy
 
-# -- install packages not available in the conda channels above
+# conda install -c mdekstrand r-glmnetutils
+
+# -- install python packages not available in the conda channels above
 RUN pip install -U -q pip && \
     pip install -U -q \
         dash \
@@ -95,6 +112,5 @@ RUN pip install -U -q pip && \
         git+git://github.com/mmacpherson/cottonmouth.git@master
 
 
-# -- install pair overview and facets
-RUN git clone https://github.com/PAIR-code/facets
-RUN cd facets && jupyter nbextension install facets-dist/ --user
+# -- install R packages not available in the conda channels above
+RUN R -e "install.packages(c('interplot', 'glmnetUtils', 'biglasso'), repos = 'http://cran.rstudio.com')"
