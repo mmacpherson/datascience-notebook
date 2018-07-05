@@ -92,6 +92,7 @@ RUN conda install --quiet --yes \
     r-irkernel \
     r-proc \
     r-rocr \
+    r-speedglm \
     r-tidyverse \
     && conda clean -tipsy
 
@@ -113,4 +114,4 @@ RUN pip install -U -q pip && \
 
 
 # -- install R packages not available in the conda channels above
-RUN R -e "install.packages(c('interplot', 'glmnetUtils', 'biglasso'), repos = 'http://cran.rstudio.com')"
+RUN R -e "install.packages(c('interplot', 'glmnetUtils', 'biglasso', 'effects'), repos = 'http://cran.rstudio.com')"
