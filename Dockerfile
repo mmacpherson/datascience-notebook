@@ -1,4 +1,3 @@
-# FROM jupyter/tensorflow-notebook
 FROM jupyter/datascience-notebook
 
 # -- from the docs:
@@ -88,6 +87,7 @@ RUN conda install --quiet --yes \
     # -- R
     r-caret \
     r-domc \
+    r-feather \
     r-glmnet \
     r-irkernel \
     r-proc \
@@ -114,4 +114,6 @@ RUN pip install -U -q pip && \
 
 
 # -- install R packages not available in the conda channels above
-RUN R -e "install.packages(c('interplot', 'glmnetUtils', 'biglasso', 'effects'), repos = 'http://cran.rstudio.com')"
+# -- disabled "interplot" for now; dep "arm" unavailable
+# -- disabled "effects" for now; requires R >= 3.5.0
+RUN R -e "install.packages(c('glmnetUtils', 'biglasso'), repos = 'http://cran.rstudio.com')"
