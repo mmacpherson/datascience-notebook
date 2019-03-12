@@ -75,7 +75,7 @@ RUN conda install --quiet --yes \
     # altair \
     plotnine \
     # -- data
-    feather-format \
+    # feather-format \
     protobuf \
     pymc3 \
     # pystan \
@@ -114,6 +114,7 @@ RUN pip install -U -q pip && \
         dash-html-components \
         dash-renderer \
         edward \
+        feather-format \
         knotr \
         plotly \
         plydata \
