@@ -126,9 +126,9 @@ RUN pip install -U -q pip && \
 RUN R -e "install.packages(c('glmnetUtils', 'biglasso', 'interplot'), repos = 'http://cran.rstudio.com')"
 
 # -- install clojure jupyter kernel
-ARG CLOJUPYTER_PATH=/tmp/clojupyter
-RUN git clone https://github.com/clojupyter/clojupyter.git $CLOJUPYTER_PATH
-WORKDIR $CLOJUPYTER_PATH
-RUN make && make install && rm -rf $CLOJUPYTER_PATH
+RUN conda install --quiet --yes \
+  -c simplect \
+  clojupyter \
+  && conda clean -tipsy
 
 WORKDIR $HOME
